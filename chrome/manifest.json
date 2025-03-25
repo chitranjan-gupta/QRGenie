@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "QR Code Scanner & Generator",
+  "description": "QR Code Scanner & Generator",
+  "version": "1.0",
+  "icons": {
+    "16": "icons/qrcode16.png",    
+    "48": "icons/qrcode48.png",
+    "128": "icons/qrcode128.png"
+  },
+  "permissions": ["activeTab","contextMenus","sidePanel", "storage"],
+  "options_ui": {
+    "page": "index.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+	"default_icon": "icons/qrcode48.png",
+	"default_title": "QR Code Scanner & Generator",
+    "default_popup": "index.html"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
