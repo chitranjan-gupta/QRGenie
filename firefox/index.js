@@ -1,4 +1,5 @@
 import QrScanner from './qr-scanner.min.js';
+//The page’s settings blocked a worker script (worker-src) at blob:moz-extension://e04952ac-f680-47d5-a9b2-ee92d5582936/03db6862-bfe2-4043-ab65-d6962e68bf18 from being executed because it violates the following directive: “script-src 'self' 'wasm-unsafe-eval'”
 // Get the video element
 const video = document.querySelector('#video');
 const input = document.querySelector('#img-in');
@@ -18,7 +19,7 @@ input.addEventListener('change', (event) => {
     if(file instanceof File && file.type.includes("image")){
       QrScanner.scanImage(file, { returnDetailedScanResult: true })
       .then(result => {
-        outqrtxt.value = String(result.data);
+        outqrtxt.innerText = String(result.data);
         console.log(result)
       })
       .catch(error => console.log(error || 'No QR code found.'));

@@ -18,7 +18,7 @@ input.addEventListener('change', (event) => {
     if(file instanceof File && file.type.includes("image")){
       QrScanner.scanImage(file, { returnDetailedScanResult: true })
       .then(result => {
-        outqrtxt.value = String(result.data);
+        outqrtxt.innerText = String(result.data);
         console.log(result)
       })
       .catch(error => console.log(error || 'No QR code found.'));
