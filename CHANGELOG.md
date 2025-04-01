@@ -9,3 +9,7 @@
 - Works seamlessly on both Google Chrome and Mozilla Firefox browsers.
 - Easily generate QR codes for selected text, image, video, or audio URLs directly from the right-click menu.
 - Simple and intuitive UI for both scanning and generating QR codes.
+
+## [1.0.1] - 2025-04-1
+### Fixed
+- Error in QR Scanner From Camera And Image Input in Firefox and Chrome
