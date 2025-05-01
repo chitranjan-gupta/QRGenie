@@ -19,6 +19,11 @@ browser.runtime.onInstalled.addListener(() => {
     title: 'Create Qr Code for selected image or audio or video link',
     contexts: ['image', 'audio', 'video'],
   });
+  browser.contextMenus.create({
+    id: 'openSidePanel4',
+    title: 'Scan Qr Code for selected image',
+    contexts: ['image'],
+  });
 });
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
@@ -37,6 +42,10 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
   }
   if (info.menuItemId === 'openSidePanel3') {
     browser.storage.local.set({ qrurl: info.srcUrl });
+    browser.sidebarAction.open();
+  }
+  if (info.menuItemId === 'openSidePanel4') {
+    browser.storage.local.set({ qrimageurl: info.srcUrl });
     browser.sidebarAction.open();
   }
 });

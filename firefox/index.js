@@ -11,18 +11,23 @@ const qrcodee = document.getElementById("qrcode");
 const openbtn = document.getElementById('open-btn');
 const copybtn = document.getElementById('copy-btn');
 const downloadbtn = document.getElementById('download-btn');
+const clipboardbtn = document.getElementById('clip-btn');
+
+function scanQR(file){
+  QrScanner.scanImage(file, { returnDetailedScanResult: true })
+	.then(result => {
+		outqrtxt.innerText = String(result.data);
+		console.log(result)
+	})
+	.catch(error => console.log(error || 'No QR code found.'));
+}
 
 input.addEventListener('change', (event) => {
   const files = event.target.files;
   if(files.length > 0){
     const file = event.target.files[0];
     if(file instanceof File && file.type.includes("image")){
-      QrScanner.scanImage(file, { returnDetailedScanResult: true })
-      .then(result => {
-        outqrtxt.innerText = String(result.data);
-        console.log(result)
-      })
-      .catch(error => console.log(error || 'No QR code found.'));
+		scanQR(file);
     }
   }
 });
@@ -90,6 +95,14 @@ genbtn.addEventListener('click', () => {
   }
 })
 
+clipboardbtn.addEventListener('click', () => {
+  navigator.clipboard.readText().then((txt) => {
+	if(txt){
+		generateQr(txt);
+	}
+  })
+})
+
 function generateQr(txt){
   if(qrcode){
     qrcode.clear(); // clear the code.
@@ -99,9 +112,19 @@ function generateQr(txt){
   }
 }
 
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 openbtn.addEventListener('click', function(){
   if(browser && browser.tabs){
-    browser.tabs.create({ url: 'index.html' });
+	if (isMobileDevice()) {
+	  console.log("User is on a mobile device.");
+	  browser.tabs.create({ url: 'https://chitranjan-gupta.github.io/QRGenie/' });
+	} else {
+	  console.log("User is on a desktop device.");
+	  browser.tabs.create({ url: 'index.html' });
+	}
   }
 })
 
@@ -128,14 +151,20 @@ downloadbtn.addEventListener('click', function() {
 })
 
 if(browser && browser.storage && browser.storage.local){
-  browser.storage.local.get(['qrurl'], (result) => {
+  browser.storage.local.get(['qrurl', 'qrimageurl'], (result) => {
     if(result && result.qrurl){
       generateQr(result.qrurl)
     }
+	if(result && result.qrimageurl){
+		fetch(result.qrimageurl).then((response) => response.blob()).then((myBlob) => {
+			scanQR(myBlob)
+		});
+	}
   })
 }
 
 const targetKey = "qrurl";
+const targetKey1 = "qrimageurl";
 
 if(browser && browser.storage){
   browser.storage.onChanged.addListener((changes, areaName) => {
@@ -146,6 +175,17 @@ if(browser && browser.storage){
       if (change.oldValue !== change.newValue) {
         // For example, trigger some action if the value has actually changed
         generateQr(change.newValue);
+      }
+    }
+	if (areaName === 'local' && changes[targetKey1]) {
+      // If the specific key has changed
+      const change = changes[targetKey1];
+      // Perform some action based on the change
+      if (change.oldValue !== change.newValue) {
+        // For example, trigger some action if the value has actually changed
+		fetch(change.newValue).then((response) => response.blob()).then((myBlob) => {
+			scanQR(myBlob)
+		});
       }
     }
   });

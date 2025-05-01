@@ -9,6 +9,7 @@ This Chrome and Firefox extension allows users to easily generate and scan QR co
 - **QR Code Scanner**:
   - Scan QR codes from images.
   - Scan QR codes using your device's camera.
+  - Scan QR codes from website.
 - **QR Code Generator**:
   - Generate QR codes from text, URLs, or any custom content.
   - Generate QR codes from selected text, image, video, or audio URLs via a right-click context menu.
@@ -40,6 +41,12 @@ This Chrome and Firefox extension allows users to easily generate and scan QR co
 2. Select an image file from your computer that contains a QR code or click the camera icon to scan a QR code using your device's camera.
 3. The extension will automatically decode the QR code and display its content (URL, text, etc.).
 4. If the content is a URL, you can directly click on it to open it in a new tab.
+
+### Scanning QR Codes via Context Menu
+
+1. Right click on the QR code image present in the website you want to scan
+2. Then Context Menu Options, Select Scan QR Code for selected image
+3. It will automatically open Sidebar with decoded QR code
 
 ### Generating QR Codes
 

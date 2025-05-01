@@ -2,13 +2,13 @@
   "manifest_version": 3,
   "name": "QR Code Scanner & Generator",
   "description": "QR Code Scanner & Generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icons": {
     "16": "icons/qrcode16.png",    
     "48": "icons/qrcode48.png",
     "128": "icons/qrcode128.png"
   },
-  "permissions": ["activeTab","contextMenus","sidePanel", "storage"],
+  "permissions": ["activeTab","contextMenus","sidePanel", "storage", "clipboardWrite", "clipboardRead"],
   "options_ui": {
     "page": "index.html",
     "open_in_tab": true

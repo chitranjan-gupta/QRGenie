@@ -13,3 +13,11 @@
 ## [1.0.1] - 2025-04-1
 ### Fixed
 - Error in QR Scanner From Camera And Image Input in Firefox and Chrome
+
+
+## [1.0.2] - 2025-04-30
+### Added
+- Scan QR codes from website using right click context menu.
+
+### Fixed
+- Fixed Firefox Mobile QR Scan not working. But it works only online.
